@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="shortcut icon" type="image/png" href="http://www.faviconsfree.com/freefavicons/124.png" />
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<title>Button Machine</title>
+
+<style type="text/css">
+body {
+    padding-top: 75px;
+}
+@media (max-width: 979px) {
+    body {
+        padding-top: 0px;}
+}
+
+.no-links1 {  position: relative; z-index:2; }
+.no-links2 { margin: -100px 0 0 -27px; position: relative; font-size: 50pt; color: #ccc; z-index:1; display: none;}
+
+.alert {
+    display: none;
+}
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {position: relative; min-height: 1px; padding-right: 10px; padding-left: 10px;}
+.col-xs-15 {width: 20%; float: left;}
+@media (min-width: 768px) {
+    .col-sm-15 {width: 20%; float: left;}
+}
+@media (min-width: 992px) {
+    .col-md-15 {width: 20%; float: left;}
+}
+@media (min-width: 1200px) {
+    .col-lg-15 {width: 20%; float: left;}
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.fa-eye').toggle();
+    $('.fa-chain').toggle();
+    document.onkeydown = function(event) {
+        var el = document.activeElement;
+        if (el && (el.tagName.toLowerCase() == 'input' && el.type == 'text')) {
+            // focused element is a text input or textarea
+        }else{
+            // focused element is NOT a text input or textarea
+            if (event.keyCode > 47 && event.keyCode < 58) { //Grab key 0-9
+                changeDivContent(event.keyCode-48);
+            }
+            return event.returnValue;
+        }
+    }//document.onkeydown
+});
+
+function bootstrap_alert(elem, timeout) {
+    $(elem).show();
+    if (timeout || timeout === 0) {
+        setTimeout(function() { 
+            $(elem).hide();
+        }, timeout);    
+    }
+};
+
+function changeDivContent(div)
+{
+    url=document.getElementById("input"+div).value;
+    if (url.length==11){
+        document.getElementById("video"+div).innerHTML="<iframe src=\"http://www.youtube.com/embed/"+url+"?rel=0&autoplay=1\" frameborder=\"0\" width=\"180\" height=\"101\"></iframe>";
+    }else{
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);
+        if (match&&match[2].length==11){
+            document.getElementById("video"+div).innerHTML="<iframe src=\"http://www.youtube.com/embed/"+match[2]+"?rel=0&autoplay=1\" frameborder=\"0\" width=\"180\" height=\"101\"></iframe>";
+            document.getElementById("input"+div).value=match[2];
+        }else{
+            bootstrap_alert('#url_error', 3000);
+        }
+    }
+}//changeDivContent
+
+</script>
+</head>
+
+<body>
+
+<!--Navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="bootstrap_alert('#dont_click', 3000);">Button Machine </a><a class="navbar-brand" onclick="bootstrap_alert('#doh_click', 1000);"><i class="fa fa-beer"></i></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="navbar-form navbar-right" role="form">
+                <input type="hidden" name="cmd" value="_donations">
+                <input type="hidden" name="business" value="sebastianleu@web.de">
+                <input type="hidden" name="lc" value="DE">
+                <input type="hidden" name="item_name" value="Button Machine">
+                <input type="hidden" name="no_note" value="0">
+                <input type="hidden" name="currency_code" value="EUR">
+                <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
+                <div class="form-group">
+                    <a class="btn btn-default" onclick="$('.fa-eye').toggle();$('.fa-eye-slash').toggle();$('.jumbotron').toggle();"><i class="fa fa-eye-slash"></i><i class="fa fa-eye"></i> Info</a>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-default" onclick="$('.fa-chain').toggle();$('.fa-chain-broken').toggle();$('.panel-footer').toggle();$('.no-links2').toggle();"><i class="fa fa-chain-broken"></i><i class="fa fa-chain"></i> Links</a>
+                </div>
+                <button type="submit" class="btn btn-success"><i class="fa fa-money"></i> Donate?</button>
+            </form>
+        </div><!--/.navbar-collapse -->
+    </div>
+</div>
+
+
+
+<!--Jumbotron -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Welcome <small>to the <em>fabulous</em> Button Machine</small></h1>
+        <p>Smash them keyboard keys <kbd>1</kbd> to 1<kbd>0</kbd> with the preloaded video clips or insert your own Youtube links in any format.<br>
+        <small><i class="fa fa-warning"></i> Reloading this page will reset all links.</small></p>
+    </div>
+</div>
+
+<!--Error-divs -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="url_error" class="alert alert-warning fade in text-center"><i class="fa fa-link"></i> <strong>Warning!</strong> You did not enter a valid Youtube-Link or Video-ID.</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="dont_click" class="alert alert-info fade in text-center"><strong>Attention please!</strong> This is not clickable. Do not click!</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="doh_click" class="alert alert-danger fade in text-center"><a href="http://goo.gl/wO5TKv"><i class="fa fa-beer" style="color:#C68686"></i></a> <strong>Seriously!</strong> Don't click the beer!</div>
+        </div>
+    </div>
+</div>
+
+<!--Video-Container -->
+<div class="container">
+<div class="row">
+
+<!--1 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1 no-links1" style="margin: 0 auto;text-align:center;" id="video1">
+                <iframe src="http://www.youtube.com/embed/qe5GS0MS5gU?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">1</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(1);"><strong>1</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(1);" id="input1" value="qe5GS0MS5gU">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--2 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1 no-links1" style="margin: 0 auto;text-align:center;" id="video2">
+                <iframe src="http://www.youtube.com/embed/iGbEjET1BNw?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">2</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(2);"><strong>2</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(2);" id="input2" value="iGbEjET1BNw">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--3 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1" style="margin: 0 auto;text-align:center;" id="video3">
+                <iframe src="http://www.youtube.com/embed/-oaxyM2tN-c?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">3</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(3);"><strong>3</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(3);" id="input3" value="-oaxyM2tN-c">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--4 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1" style="margin: 0 auto;text-align:center;" id="video4">
+                <iframe src="http://www.youtube.com/embed/PpX0DqlEdrM?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">4</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(4);"><strong>4</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(4);" id="input4" value="PpX0DqlEdrM">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--5 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1" style="margin: 0 auto;text-align:center;" id="video5">
+                <iframe src="http://www.youtube.com/embed/RFZrzg62Zj0?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">5</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(5);"><strong>5</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(5);" id="input5" value="RFZrzg62Zj0">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--6 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1" style="margin: 0 auto;text-align:center;" id="video6">
+                <iframe src="http://www.youtube.com/embed/tX-Ss7b1l-4?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">6</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(6);"><strong>6</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(6);" id="input6" value="tX-Ss7b1l-4">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--7 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1" style="margin: 0 auto;text-align:center;" id="video7">
+                <iframe src="http://www.youtube.com/embed/jUi-JeKwfqA?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">7</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(7);"><strong>7</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(7);" id="input7" value="jUi-JeKwfqA">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--8 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1" style="margin: 0 auto;text-align:center;" id="video8">
+                <iframe src="http://www.youtube.com/embed/YaG5SAw1n0c?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">8</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(8);"><strong>8</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(8);" id="input8" value="YaG5SAw1n0c">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--9 -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1" style="margin: 0 auto;text-align:center;" id="video9">
+                <iframe src="http://www.youtube.com/embed/8IIrf_JSuQk?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">9</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(9);"><strong>9</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(9);" id="input9" value="8IIrf_JSuQk">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+<!--1(0) -->
+<div class="col-xs-6 col-sm-4 col-md-15">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="flex-video widescreen no-links1" style="margin: 0 auto;text-align:center;" id="video0">
+                <iframe src="http://www.youtube.com/embed/HeHUQAnzpF0?rel=0" frameborder="0" width="180" height="101"></iframe>
+            </div>
+            <div class="no-links2">0</div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" onclick="changeDivContent(0);">1<strong>0</strong></button>
+                </span>
+                <input type="text" class="form-control" onkeyup="changeDivContent(0);" id="input0" value="HeHUQAnzpF0">
+            </div><!-- /input-group -->
+        </div>
+    </div><!-- /panel -->
+</div>
+
+</div><!-- /row -->
+</div><!-- /container -->
+
+<hr>
+
+<!--Footer -->
+<div class="container">
+    <p class="text-center text-muted"><small>© 2014 Sebastian. All rights reserved. Inspired by <a href="http://www.tvtotal.prosieben.de/tvtotal/videos/?category=nippel">TV total</a>. <a href="http://twitter.com/BastiLejon"><i class="fa fa-twitter"></i></a> <a href="https://www.facebook.com/TheGoodLordAbove"><i class="fa fa-facebook"></i></a> <a href="http://goo.gl/SQ93Dk"><i class="fa fa-gittip"></i></a></small></p>
+</div>
+
+</body>
+</html>
+
+<!-- Not yet used Youtube videos
+lI1EI_XsgHg : Stewie - What the fuck
+wgvwfvTcNl0 : Borat - Not
+BWi-ZgaSCEw : TBBT - Knock knock Penny
+tiI8pi6Z_Es : Family Guy - Peters first fart
+qtcOC1G84MA : Cartman - WTF is that
+GDQCaGlqLFY : Fuckfuckfuck - Boondock Saints
+-->
