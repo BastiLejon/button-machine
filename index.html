@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="shortcut icon" type="image/png" href="http://www.faviconsfree.com/freefavicons/124.png" />
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="http://github.com/cowboy/jquery-bbq/raw/v1.2.1/jquery.ba-bbq.min.js"></script>
+
+<title>Button Machine</title>
+
+<!--extra CSS-->
+<style type="text/css">
+    /* fix navbar */
+    body {
+        padding-top: 75px;
+    }
+    @media (max-width: 979px) {
+        body {
+            padding-top: 0px;}
+    }
+
+    /* label positioning for the small view*/
+    .no-links1 { position: relative; z-index:2; }
+    .no-links2 { margin: -100px 0 0 -27px; position: relative; font-size: 50pt; color: #ccc; z-index:1; display: none;}
+
+    /* hide all alerts by default */
+    .alert {
+        display: none;
+    }
+
+    /* Bootstrap 5 colom alteration */
+    .col-xs-15,
+    .col-sm-15,
+    .col-md-15,
+    .col-lg-15 {position: relative; min-height: 1px; padding-right: 10px; padding-left: 10px;}
+    .col-xs-15 {width: 20%; float: left;}
+    @media (min-width: 768px) {
+        .col-sm-15 {width: 20%; float: left;}
+    }
+    @media (min-width: 992px) {
+        .col-md-15 {width: 20%; float: left;}
+    }
+    @media (min-width: 1200px) {
+        .col-lg-15 {width: 20%; float: left;}
+    }
+</style>
+
+<!--Javascript-->
+<script>
+    function bootstrap_alert(elem, timeout) {
+        $(elem).show();
+        if (timeout || timeout === 0) {
+            setTimeout(function() { 
+                $(elem).hide();
+            }, timeout);
+        }
+    }
+
+    function changeDivContent(div) {
+        url = $("#input"+div).val();
+        if (url.length==11){
+            $("#video"+div).html("<iframe src=\"http://www.youtube.com/embed/"+url+"?rel=0&autoplay=1\" frameborder=\"0\" width=\"180\" height=\"101\"></iframe>");
+        }else{
+            var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            if (match&&match[2].length==11){
+                $("#video"+div).html("<iframe src=\"http://www.youtube.com/embed/"+match[2]+"?rel=0&autoplay=1\" frameborder=\"0\" width=\"180\" height=\"101\"></iframe>");
+                $("#input"+div).val(match[2]);
+            }else{
+                bootstrap_alert('#url_error', 3000);
+            }
+        }
+    }//end:changeDivContent
+
+    $(document).ready(function() {
+
+        $('.fa-eye').toggle();
+        $('.fa-chain').toggle();
+
+        $(".video-btn").click(function(){
+            changeDivContent(this.id);
+        });
+
+        $(".video-input").keyup(function(){
+            changeDivContent(this.id.slice(-1));
+        });
+
+        document.onkeydown = function(event) {
+            var el = document.activeElement;
+            if (el && (el.tagName.toLowerCase() == 'input' && el.type == 'text')) {
+                // focused element is a text input or textarea
+            }else{
+                // focused element is NOT a text input or textarea
+                if (event.keyCode > 47 && event.keyCode < 58) { //Grab key 0-9
+                    changeDivContent(event.keyCode-48);
+                }
+                return event.returnValue;
+            }
+        }//end:document.onkeydown
+
+        // Bind an event to window.onhashchange that, when the history state changes,
+        // gets the url from the hash and displays either our cached content or fetches
+        // new content to be displayed.
+        $(window).bind( 'hashchange', function(e) {
+        // Get the hash (fragment) as a string, with any leading # removed. Note that
+        // in jQuery 1.4, you should use e.fragment instead of $.param.fragment().
+        var url = $.param.fragment();
+        changeDivContent(url);
+        })
+        // Since the event is only triggered when the hash changes, we need to trigger
+        // the event now, to handle the hash the page may have loaded with.
+        $(window).trigger( 'hashchange' );
+    });//end:ready_function
+</script>
+
+</head>
+
+<body>
+
+<!--Navbar-->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="bootstrap_alert('#dont_click', 3000);">Button Machine </a><a class="navbar-brand" onclick="bootstrap_alert('#doh_click', 1000);"><i class="fa fa-beer"></i></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="navbar-form navbar-right" role="form">
+                <input type="hidden" name="cmd" value="_donations">
+                <input type="hidden" name="business" value="sebastianleu@web.de">
+                <input type="hidden" name="lc" value="DE">
+                <input type="hidden" name="item_name" value="Button Machine">
+                <input type="hidden" name="no_note" value="0">
+                <input type="hidden" name="currency_code" value="EUR">
+                <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
+                <div class="form-group">
+                    <a class="btn btn-default" onclick="$('.fa-eye').toggle();$('.fa-eye-slash').toggle();$('.jumbotron').toggle();">
+                        <i class="fa fa-eye-slash"></i><i class="fa fa-eye"></i> Info</a>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-default" onclick="$('.fa-chain').toggle();$('.fa-chain-broken').toggle();$('.panel-footer').toggle();$('.no-links2').toggle();">
+                        <i class="fa fa-chain-broken"></i><i class="fa fa-chain"></i> Links</a>
+                </div>
+                <button type="submit" class="btn btn-success"><i class="fa fa-money"></i> Donate?</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Jumbotron-->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Welcome <small>to the <em>fabulous</em> Button Machine</small></h1>
+        <p>Smash them keyboard keys <kbd>1</kbd> to 1<kbd>0</kbd> with the preloaded video clips or insert your own Youtube links in any format.<br>
+        <small><i class="fa fa-warning"></i> Reloading this page will reset all links.</small></p>
+    </div>
+</div>
+
+<!--Error-divs-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="url_error" class="alert alert-warning fade in text-center"><i class="fa fa-link"></i> <strong>Warning!</strong> You did not enter a valid Youtube-Link or Video-ID.</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="dont_click" class="alert alert-info fade in text-center"><strong>Attention please!</strong> This is not clickable. Do not click!</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="doh_click" class="alert alert-danger fade in text-center"><a href="http://goo.gl/wO5TKv"><i class="fa fa-beer" style="color:#C68686"></i></a> <strong>Seriously!</strong> Don't click the beer!</div>
+        </div>
+    </div>
+</div>
+
+<!--Video-Container-->
+<div class="container">
+<div class="row">
+
+<script type="text/javascript">
+    var clips = [   "HeHUQAnzpF0", // key0
+                    "qe5GS0MS5gU", // key1
+                    "iGbEjET1BNw", // key2
+                    "-oaxyM2tN-c", // key3 
+                    "PpX0DqlEdrM", // key4
+                    "RFZrzg62Zj0", // key5
+                    "tX-Ss7b1l-4", // key6
+                    "jUi-JeKwfqA", // key7
+                    "YaG5SAw1n0c", // key8
+                    "8IIrf_JSuQk", // key9
+                ];
+
+    var num_one = "";
+    for (var i = 1; i < clips.length+1; i++) {
+        if(i != 10) {vid = i;} else {num_one="1"; vid=0;}
+document.write('<div class="col-xs-6 col-sm-4 col-md-15">');
+document.write('    <div class="panel panel-default">');
+document.write('        <div class="panel-body">');
+document.write('            <div class="flex-video no-links1 text-center" id="video'+vid+'">');
+document.write('                <iframe src="http://www.youtube.com/embed/'+clips[vid]+'?rel=0" frameborder="0" width="180" height="101"></iframe>');
+document.write('            </div>');
+document.write('            <div class="no-links2">'+vid+'</div>');
+document.write('        </div>');
+document.write('        <div class="panel-footer">');
+document.write('            <div class="input-group">');
+document.write('                <span class="input-group-btn">');
+document.write('                    <a href="#'+vid+'" id="'+vid+'" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></a>');
+document.write('                </span>');
+document.write('                <input type="text" class="form-control video-input" id="input'+vid+'" value="'+clips[vid]+'">');
+document.write('            </div>');
+document.write('        </div>');
+document.write('    </div>');
+document.write('</div>');
+    }
+</script>
+
+</div><!-- /row -->
+</div><!-- /container -->
+
+<hr>
+
+<!--Footer-->
+<div class="container">
+    <p class="text-center text-muted">
+        <small>
+            © 2014 Sebastian. All rights reserved. Inspired by 
+            <a href="http://www.tvtotal.prosieben.de/tvtotal/videos/?category=nippel">TV total</a>. 
+            <a href="https://github.com/BastiLejon/button-machine/"><i class="fa fa-github"></i></a> 
+            <a href="http://twitter.com/BastiLejon"><i class="fa fa-twitter"></i></a> 
+            <a href="https://www.facebook.com/TheGoodLordAbove"><i class="fa fa-facebook"></i></a> 
+            <a href="http://goo.gl/SQ93Dk"><i class="fa fa-gittip"></i></a>
+        </small>
+    </p>
+</div>
+
+</body>
+</html>
+
+<!-- Not yet used Youtube videos
+lI1EI_XsgHg : Stewie - What the fuck
+wgvwfvTcNl0 : Borat - Not
+BWi-ZgaSCEw : TBBT - Knock knock Penny
+tiI8pi6Z_Es : Family Guy - Peters first fart
+qtcOC1G84MA : Cartman - WTF is that
+GDQCaGlqLFY : Fuckfuckfuck - Boondock Saints
+-->
