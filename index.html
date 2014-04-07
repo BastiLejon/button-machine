@@ -10,8 +10,9 @@
 
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="http://github.com/cowboy/jquery-bbq/raw/v1.2.1/jquery.ba-bbq.min.js"></script>
 
 <title>Button Machine</title>
 
@@ -104,7 +105,20 @@
                 return event.returnValue;
             }
         }//end:document.onkeydown
-    });
+
+        // Bind an event to window.onhashchange that, when the history state changes,
+        // gets the url from the hash and displays either our cached content or fetches
+        // new content to be displayed.
+        $(window).bind( 'hashchange', function(e) {
+        // Get the hash (fragment) as a string, with any leading # removed. Note that
+        // in jQuery 1.4, you should use e.fragment instead of $.param.fragment().
+        var url = $.param.fragment();
+        changeDivContent(url);
+        })
+        // Since the event is only triggered when the hash changes, we need to trigger
+        // the event now, to handle the hash the page may have loaded with.
+        $(window).trigger( 'hashchange' );
+    });//end:ready_function
 </script>
 
 </head>
@@ -211,7 +225,7 @@ document.write('        </div>');
 document.write('        <div class="panel-footer">');
 document.write('            <div class="input-group">');
 document.write('                <span class="input-group-btn">');
-document.write('                    <button id="'+vid+'" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></button>');
+document.write('                    <a href="#'+vid+'" id="'+vid+'" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></a>');
 document.write('                </span>');
 document.write('                <input type="text" class="form-control video-input" id="input'+vid+'" value="'+clips[vid]+'">');
 document.write('            </div>');
