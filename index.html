@@ -78,6 +78,7 @@
                 bootstrap_alert('#url_error', 3000);
             }
         }
+        window.location.hash = ''+div;
     }//end:changeDivContent
 
     $(document).ready(function() {
@@ -91,6 +92,30 @@
 
         $(".video-input").keyup(function(){
             changeDivContent(this.id.slice(-1));
+        });
+
+        $(".save-btn").click(function(){
+            var clips_array = JSON.parse(localStorage["clips_stored"]);
+            clips_array[this.id] = $("#input"+this.id).val();
+            localStorage["clips_stored"] = JSON.stringify(clips_array);   
+            window.location.hash = ''+this.id;     
+        });
+
+        $(".reset-btn").click(function(){
+            var clips_array = [ "HeHUQAnzpF0", // key0
+                            "qe5GS0MS5gU", // key1
+                            "iGbEjET1BNw", // key2
+                            "-oaxyM2tN-c", // key3 
+                            "PpX0DqlEdrM", // key4
+                            "RFZrzg62Zj0", // key5
+                            "tX-Ss7b1l-4", // key6
+                            "jUi-JeKwfqA", // key7
+                            "YaG5SAw1n0c", // key8
+                            "8IIrf_JSuQk", // key9
+                            ];
+            localStorage["clips_stored"] = JSON.stringify(clips_array);
+            window.location.hash = '';
+            location.reload();
         });
 
         document.onkeydown = function(event) {
@@ -120,11 +145,9 @@
         $(window).trigger( 'hashchange' );
     });//end:ready_function
 </script>
-
 </head>
 
 <body>
-
 <!--Navbar-->
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -151,6 +174,9 @@
                 <div class="form-group">
                     <a class="btn btn-default" onclick="$('.fa-chain').toggle();$('.fa-chain-broken').toggle();$('.panel-footer').toggle();$('.no-links2').toggle();">
                         <i class="fa fa-chain-broken"></i><i class="fa fa-chain"></i> Links</a>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-danger reset-btn"><i class="fa fa-undo"></i> Reset</a>
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-money"></i> Donate?</button>
             </form>
@@ -199,18 +225,22 @@
 <div class="row">
 
 <script type="text/javascript">
-    var clips = [   "HeHUQAnzpF0", // key0
-                    "qe5GS0MS5gU", // key1
-                    "iGbEjET1BNw", // key2
-                    "-oaxyM2tN-c", // key3 
-                    "PpX0DqlEdrM", // key4
-                    "RFZrzg62Zj0", // key5
-                    "tX-Ss7b1l-4", // key6
-                    "jUi-JeKwfqA", // key7
-                    "YaG5SAw1n0c", // key8
-                    "8IIrf_JSuQk", // key9
-                ];
+    if (!localStorage["clips_stored"]) {
+        var clips_array = [ "HeHUQAnzpF0", // key0
+                            "qe5GS0MS5gU", // key1
+                            "iGbEjET1BNw", // key2
+                            "-oaxyM2tN-c", // key3 
+                            "PpX0DqlEdrM", // key4
+                            "RFZrzg62Zj0", // key5
+                            "tX-Ss7b1l-4", // key6
+                            "jUi-JeKwfqA", // key7
+                            "YaG5SAw1n0c", // key8
+                            "8IIrf_JSuQk", // key9
+                            ];
+        localStorage["clips_stored"] = JSON.stringify(clips_array);
+    };
 
+    var clips = JSON.parse(localStorage["clips_stored"]);
     var num_one = "";
     for (var i = 1; i < clips.length+1; i++) {
         if(i != 10) {vid = i;} else {num_one="1"; vid=0;}
@@ -225,9 +255,12 @@ document.write('        </div>');
 document.write('        <div class="panel-footer">');
 document.write('            <div class="input-group">');
 document.write('                <span class="input-group-btn">');
-document.write('                    <a href="#'+vid+'" id="'+vid+'" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></a>');
+document.write('                    <a id="'+vid+'" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></a>');
 document.write('                </span>');
 document.write('                <input type="text" class="form-control video-input" id="input'+vid+'" value="'+clips[vid]+'">');
+document.write('                <span class="input-group-btn">');
+document.write('                    <a id='+vid+' class="btn btn-warning save-btn" type="button"><i class="fa fa-hdd-o"></i></a>');
+document.write('                </span>');
 document.write('            </div>');
 document.write('        </div>');
 document.write('    </div>');
