@@ -102,6 +102,49 @@
     }//end:changeDivContent
 
     $(document).ready(function() {
+        if (!localStorage["clips_stored"]) {
+            var clips_array = [ "HeHUQAnzpF0", // key0
+                                "qe5GS0MS5gU", // key1
+                                "iGbEjET1BNw", // key2
+                                "-oaxyM2tN-c", // key3 
+                                "PpX0DqlEdrM", // key4
+                                "RFZrzg62Zj0", // key5
+                                "tX-Ss7b1l-4", // key6
+                                "jUi-JeKwfqA", // key7
+                                "YaG5SAw1n0c", // key8
+                                "8IIrf_JSuQk", // key9
+                                ];
+            localStorage["clips_stored"] = JSON.stringify(clips_array);
+        };
+
+        var clips = JSON.parse(localStorage["clips_stored"]);
+        var num_one = "";
+        var div_code = "";
+        for (var i = 1; i < clips.length+1; i++) {
+            if(i != 10) {vid = i;} else {num_one="1"; vid=0;}
+                div_code+='<div class="col-xs-6 col-sm-4 col-md-15">';
+                div_code+='    <div class="panel panel-default" id="panel'+vid+'">';
+                div_code+='        <div class="panel-body">';
+                div_code+='            <div class="flex-video no-links1 text-center" id="video'+vid+'">';
+                div_code+='                <iframe src="http://www.youtube.com/embed/'+clips[vid]+'?rel=0" frameborder="0" width="180" height="101"></iframe>';
+                div_code+='            </div>';
+                div_code+='            <div class="no-links2">'+vid+'</div>';
+                div_code+='        </div>';
+                div_code+='        <div class="panel-footer">';
+                div_code+='            <div class="input-group">';
+                div_code+='                <span class="input-group-btn">';
+                div_code+='                    <a id="'+vid+'" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Click to play" class="btn btn-default ="button">'+num_one+'<strong>'+vid+'</strong></a>';
+                div_code+='                </span>';
+                div_code+='                <input type="text" class="form-control video-input" id="input'+vid+'" value="'+clips[vid]+'">';
+                div_code+='                <span class="input-group-btn">';
+                div_code+='                    <a id="'+vid+'" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Save link locally" class="btn btn-n" type="button"><i class="fa fa-hdd-o"></i></a>';
+                div_code+='                </span>';
+                div_code+='            </div>';
+                div_code+='        </div>';
+                div_code+='    </div>';
+                div_code+='</div>';
+        }
+        $("#clip-div").append(div_code);
 
         $('.fa-eye').toggle();
         $('.fa-chain').toggle();
@@ -300,55 +343,10 @@
     </div>
 </div>
 
-<!--Video-Container-->
+<!--Video-Container-Dummy-->
 <div class="container animated fadeInUpBig">
-<div class="row">
-
-<script type="text/javascript">
-    if (!localStorage["clips_stored"]) {
-        var clips_array = [ "HeHUQAnzpF0", // key0
-                            "qe5GS0MS5gU", // key1
-                            "iGbEjET1BNw", // key2
-                            "-oaxyM2tN-c", // key3 
-                            "PpX0DqlEdrM", // key4
-                            "RFZrzg62Zj0", // key5
-                            "tX-Ss7b1l-4", // key6
-                            "jUi-JeKwfqA", // key7
-                            "YaG5SAw1n0c", // key8
-                            "8IIrf_JSuQk", // key9
-                            ];
-        localStorage["clips_stored"] = JSON.stringify(clips_array);
-    };
-
-    var clips = JSON.parse(localStorage["clips_stored"]);
-    var num_one = "";
-    for (var i = 1; i < clips.length+1; i++) {
-        if(i != 10) {vid = i;} else {num_one="1"; vid=0;}
-document.write('<div class="col-xs-6 col-sm-4 col-md-15">');
-document.write('    <div class="panel panel-default" id="panel'+vid+'">');
-document.write('        <div class="panel-body">');
-document.write('            <div class="flex-video no-links1 text-center" id="video'+vid+'">');
-document.write('                <iframe src="http://www.youtube.com/embed/'+clips[vid]+'?rel=0" frameborder="0" width="180" height="101"></iframe>');
-document.write('            </div>');
-document.write('            <div class="no-links2">'+vid+'</div>');
-document.write('        </div>');
-document.write('        <div class="panel-footer">');
-document.write('            <div class="input-group">');
-document.write('                <span class="input-group-btn">');
-document.write('                    <a id="'+vid+'" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Click to play" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></a>');
-document.write('                </span>');
-document.write('                <input type="text" class="form-control video-input" id="input'+vid+'" value="'+clips[vid]+'">');
-document.write('                <span class="input-group-btn">');
-document.write('                    <a id="'+vid+'" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Save link locally" class="btn btn-default save-btn" type="button"><i class="fa fa-hdd-o"></i></a>');
-document.write('                </span>');
-document.write('            </div>');
-document.write('        </div>');
-document.write('    </div>');
-document.write('</div>');
-    }
-</script>
-
-</div>
+    <div class="row" id="clip-div">
+    </div>
 </div>
 
 <hr>
