@@ -10,31 +10,22 @@
 
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-<<<<<<< HEAD
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="http://github.com/cowboy/jquery-bbq/raw/v1.2.1/jquery.ba-bbq.min.js"></script>
-=======
 <link rel="stylesheet" href="animate.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://github.com/cowboy/jquery-bbq/raw/v1.2.1/jquery.ba-bbq.min.js"></script>
 <script src="https://github.com/makeusabrew/bootbox/releases/download/v4.2.0/bootbox.min.js"></script>
->>>>>>> tmp
 
 <title>Button Machine</title>
 
 <!--extra CSS-->
 <style type="text/css">
-<<<<<<< HEAD
-=======
     /* BootBox alteration */
     .modal-dialog {
         width: 300px;
     }
 
->>>>>>> tmp
     /* fix navbar */
     body {
         padding-top: 75px;
@@ -72,8 +63,6 @@
 
 <!--Javascript-->
 <script>
-<<<<<<< HEAD
-=======
     function animationChange(element, animation, an2){
         element = $(element);
         element.addClass('animated ' + animation);         
@@ -84,7 +73,6 @@
         }, 2000);
     }
 
->>>>>>> tmp
     function bootstrap_alert(elem, timeout) {
         $(elem).show();
         if (timeout || timeout === 0) {
@@ -108,10 +96,7 @@
                 bootstrap_alert('#url_error', 3000);
             }
         }
-<<<<<<< HEAD
-=======
         window.location.hash = ''+div;
->>>>>>> tmp
     }//end:changeDivContent
 
     $(document).ready(function() {
@@ -127,8 +112,6 @@
             changeDivContent(this.id.slice(-1));
         });
 
-<<<<<<< HEAD
-=======
         $(".save-btn").click(function(){
             var clips_array = JSON.parse(localStorage["clips_stored"]);
             clips_array[this.id] = $("#input"+this.id).val();
@@ -195,7 +178,6 @@
             //}, 500);
         });
 
->>>>>>> tmp
         document.onkeydown = function(event) {
             var el = document.activeElement;
             if (el && (el.tagName.toLowerCase() == 'input' && el.type == 'text')) {
@@ -223,21 +205,11 @@
         $(window).trigger( 'hashchange' );
     });//end:ready_function
 </script>
-<<<<<<< HEAD
-
-</head>
-
-<body>
-
-<!--Navbar-->
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-=======
 </head>
 
 <body>
 <!--Navbar-->
 <div class="navbar navbar-inverse navbar-fixed-top animated pulse" role="navigation">
->>>>>>> tmp
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -256,14 +228,6 @@
                 <input type="hidden" name="currency_code" value="EUR">
                 <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
                 <div class="form-group">
-<<<<<<< HEAD
-                    <a class="btn btn-default" onclick="$('.fa-eye').toggle();$('.fa-eye-slash').toggle();$('.jumbotron').toggle();">
-                        <i class="fa fa-eye-slash"></i><i class="fa fa-eye"></i> Info</a>
-                </div>
-                <div class="form-group">
-                    <a class="btn btn-default" onclick="$('.fa-chain').toggle();$('.fa-chain-broken').toggle();$('.panel-footer').toggle();$('.no-links2').toggle();">
-                        <i class="fa fa-chain-broken"></i><i class="fa fa-chain"></i> Links</a>
-=======
                     <a class="btn btn-default view-btn"><i class="fa fa-eye-slash"></i><i class="fa fa-eye"></i> Info</a>
                 </div>
                 <div class="form-group">
@@ -271,7 +235,6 @@
                 </div>
                 <div class="form-group">
                     <a class="btn btn-danger reset-btn"><i class="fa fa-undo"></i> Reset</a>
->>>>>>> tmp
                 </div>
                 <button type="submit" class="btn btn-success"><i class="fa fa-money"></i> Donate?</button>
             </form>
@@ -279,22 +242,11 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-
-
-<!--Jumbotron-->
-<div class="jumbotron">
-    <div class="container">
-        <h1>Welcome <small>to the <em>fabulous</em> Button Machine</small></h1>
-        <p>Smash them keyboard keys <kbd>1</kbd> to 1<kbd>0</kbd> with the preloaded video clips or insert your own Youtube links in any format.<br>
-        <small><i class="fa fa-warning"></i> Reloading this page will reset all links.</small></p>
-=======
 <!--Jumbotron-->
 <div class="jumbotron animated bounceInDown">
     <div class="container">
         <h1>Welcome <small>to the <em>fabulous</em> Button Machine</small></h1>
         <p>Smash them keyboard keys <kbd>1</kbd> to 1<kbd>0</kbd> with the preloaded video clips or insert your own Youtube links in any format.</p>
->>>>>>> tmp
     </div>
 </div>
 
@@ -324,24 +276,6 @@
 </div>
 
 <!--Video-Container-->
-<<<<<<< HEAD
-<div class="container">
-<div class="row">
-
-<script type="text/javascript">
-    var clips = [   "HeHUQAnzpF0", // key0
-                    "qe5GS0MS5gU", // key1
-                    "iGbEjET1BNw", // key2
-                    "-oaxyM2tN-c", // key3 
-                    "PpX0DqlEdrM", // key4
-                    "RFZrzg62Zj0", // key5
-                    "tX-Ss7b1l-4", // key6
-                    "jUi-JeKwfqA", // key7
-                    "YaG5SAw1n0c", // key8
-                    "8IIrf_JSuQk", // key9
-                ];
-
-=======
 <div class="container animated fadeInUpBig">
 <div class="row">
 
@@ -362,7 +296,6 @@
     };
 
     var clips = JSON.parse(localStorage["clips_stored"]);
->>>>>>> tmp
     var num_one = "";
     for (var i = 1; i < clips.length+1; i++) {
         if(i != 10) {vid = i;} else {num_one="1"; vid=0;}
@@ -377,18 +310,12 @@ document.write('        </div>');
 document.write('        <div class="panel-footer">');
 document.write('            <div class="input-group">');
 document.write('                <span class="input-group-btn">');
-<<<<<<< HEAD
-document.write('                    <a href="#'+vid+'" id="'+vid+'" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></a>');
-document.write('                </span>');
-document.write('                <input type="text" class="form-control video-input" id="input'+vid+'" value="'+clips[vid]+'">');
-=======
 document.write('                    <a id="'+vid+'" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></a>');
 document.write('                </span>');
 document.write('                <input type="text" class="form-control video-input" id="input'+vid+'" value="'+clips[vid]+'">');
 document.write('                <span class="input-group-btn">');
 document.write('                    <a id='+vid+' class="btn btn-warning save-btn" type="button"><i class="fa fa-hdd-o"></i></a>');
 document.write('                </span>');
->>>>>>> tmp
 document.write('            </div>');
 document.write('        </div>');
 document.write('    </div>');
