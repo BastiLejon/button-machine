@@ -245,7 +245,7 @@
         $(window).hashchange( function(){
         var hash = location.hash;
         // Set the page title based on the hash.
-        url = ( hash.replace( /^#/, '' ) || 'blank' );
+        var url = ( hash.replace( /^#/, '' ) || 'blank' );
         changeDivContent(url);
         })
         // Since the event is only triggered when the hash changes, we need to trigger
