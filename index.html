@@ -64,13 +64,12 @@
 
 <!--Javascript-->
 <script>
-    function animationChange(element, animation, an2){
+    function animationChange(element, animation){
         element = $(element);
         element.addClass('animated ' + animation);         
         //wait for animation to finish before removing classes
         window.setTimeout( function(){
             element.removeClass(animation);
-            element.addClass(an2);
         }, 2000);
     }
 
@@ -160,18 +159,18 @@
         $(".view-btn").click(function(){
             $('.fa-eye').toggle();
             $('.fa-eye-slash').toggle();
-            animationChange('.jumbotron', 'bounceOutUp', 'bounceInDown');
+            if ($(".jumbotron").is(":visible")) {animationChange('.jumbotron', 'bounceOutUp');} else {animationChange('.jumbotron', 'bounceInDown');}; 
             window.setTimeout( function(){
-                $('.jumbotron').toggle();
-            }, 200);
+            $('.jumbotron').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', $('.jumbotron').toggle());
+            }, 500);
         });
 
         $(".link-btn").click(function(){
             $('.fa-chain').toggle();
             $('.fa-chain-broken').toggle();
-            animationChange('.panel-footer', '', 'fadeInDown');
+            animationChange('.panel-footer', 'fadeInDown');
                 $('.panel-footer').toggle();
-            animationChange('.no-links2', 'tada', '');
+            animationChange('.no-links2', 'tada');
                 $('.no-links2').toggle();
         });
 
@@ -187,20 +186,6 @@
                 return event.returnValue;
             }
         }//end:document.onkeydown
-/*
-        // Bind an event to window.onhashchange that, when the history state changes,
-        // gets the url from the hash and displays either our cached content or fetches
-        // new content to be displayed.
-        $(window).bind( 'hashchange', function(e) {
-        // Get the hash (fragment) as a string, with any leading # removed. Note that
-        // in jQuery 1.4, you should use e.fragment instead of $.param.fragment().
-        var url = $.param.fragment();
-        changeDivContent(url);
-        })
-        // Since the event is only triggered when the hash changes, we need to trigger
-        // the event now, to handle the hash the page may have loaded with.
-        $(window).trigger( 'hashchange' );
-*/
 
         // Bind an event to window.onhashchange that, when the hash changes, gets the
         // hash and adds the class "selected" to any matching nav link.
@@ -213,9 +198,6 @@
         // Since the event is only triggered when the hash changes, we need to trigger
         // the event now, to handle the hash the page may have loaded with.
         $(window).hashchange();
-
-
-
     });//end:ready_function
 </script>
 </head>
