@@ -83,7 +83,7 @@
     }
 
     function changeDivContent(div) {
-        url = $("#input"+div).val();
+        var url = $("#input"+div).val();
         if (url.length==11){
             $("#video"+div).html("<iframe src=\"http://www.youtube.com/embed/"+url+"?rel=0&autoplay=1\" frameborder=\"0\" width=\"180\" height=\"101\"></iframe>");
             animationChange('#panel'+div, 'bounce');
@@ -133,11 +133,11 @@
                 div_code+='        <div class="panel-footer">';
                 div_code+='            <div class="input-group">';
                 div_code+='                <span class="input-group-btn">';
-                div_code+='                    <a id="'+vid+'" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Click to play" class="btn btn-default ="button">'+num_one+'<strong>'+vid+'</strong></a>';
+                div_code+='                    <a id="'+vid+'" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Click to play" class="btn btn-default video-btn" type="button">'+num_one+'<strong>'+vid+'</strong></a>';
                 div_code+='                </span>';
                 div_code+='                <input type="text" class="form-control video-input" id="input'+vid+'" value="'+clips[vid]+'">';
                 div_code+='                <span class="input-group-btn">';
-                div_code+='                    <a id="'+vid+'" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Save link locally" class="btn btn-n" type="button"><i class="fa fa-hdd-o"></i></a>';
+                div_code+='                    <a id="'+vid+'" data-container="body" data-toggle="tooltip" data-placement="bottom" title="Save link locally" class="btn btn-default save-btn" type="button"><i class="fa fa-hdd-o"></i></a>';
                 div_code+='                </span>';
                 div_code+='            </div>';
                 div_code+='        </div>';
