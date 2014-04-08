@@ -16,6 +16,7 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://github.com/cowboy/jquery-bbq/raw/v1.2.1/jquery.ba-bbq.min.js"></script>
 <script src="https://github.com/makeusabrew/bootbox/releases/download/v4.2.0/bootbox.min.js"></script>
+<script src="jquery.ba-hashchange.min.js"></script>
 
 <title>Button Machine</title>
 
@@ -186,7 +187,7 @@
                 return event.returnValue;
             }
         }//end:document.onkeydown
-
+/*
         // Bind an event to window.onhashchange that, when the history state changes,
         // gets the url from the hash and displays either our cached content or fetches
         // new content to be displayed.
@@ -199,6 +200,22 @@
         // Since the event is only triggered when the hash changes, we need to trigger
         // the event now, to handle the hash the page may have loaded with.
         $(window).trigger( 'hashchange' );
+*/
+
+        // Bind an event to window.onhashchange that, when the hash changes, gets the
+        // hash and adds the class "selected" to any matching nav link.
+        $(window).hashchange( function(){
+        var hash = location.hash;
+        // Set the page title based on the hash.
+        url = ( hash.replace( /^#/, '' ) || 'blank' );
+        changeDivContent(url);
+        })
+        // Since the event is only triggered when the hash changes, we need to trigger
+        // the event now, to handle the hash the page may have loaded with.
+        $(window).hashchange();
+
+
+
     });//end:ready_function
 </script>
 </head>
